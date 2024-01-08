@@ -5,12 +5,16 @@ import NextLink from 'next/link';
 import IssueActions from "./IssueActions";
 import { Issue, Status } from "@prisma/client";
 import { ArrowUpIcon, ColumnSpacingIcon } from "@radix-ui/react-icons";
+import Pagination from "@/app/components/Pagination";
 
 //Prisma to fetch all the issues from the database 
 // Then filter the issues 
 
 interface Props { 
-  searchParams: { status: Status, orderBy: keyof Issue}
+  searchParams: { 
+    status: Status, 
+    orderBy: keyof Issue, 
+  page: string};
 }
 
 const IssuesPage = async ({
@@ -38,16 +42,27 @@ const IssuesPage = async ({
   ? { [searchParams.orderBy]: 'asc'}
   : undefined; 
 
+  const where = { status }; 
+
+
+    const page = parseInt(searchParams.page) || 1; 
+    const pageSize = 10; 
+
     const issues = await prisma.issue.findMany({ 
-      where: { 
-        status,
-      },
-      orderBy
+      where,
+      orderBy, 
+      skip: (page - 1) * pageSize, 
+      take: pageSize
     }); 
+
+    const issueCount = prisma.issue.count({where})
    
 
     return (
       <div>
+
+
+
   <IssueActions/> 
         
         <Table.Root variant='surface'> 
@@ -86,6 +101,11 @@ const IssuesPage = async ({
   
               </Table.Body>
         </Table.Root>
+        <Pagination
+        pageSize={pageSize}
+        currentPage={page}
+        itemCount={issueCount}
+        /> 
       </div>
     );
   };
