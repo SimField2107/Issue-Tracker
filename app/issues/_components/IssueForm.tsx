@@ -61,7 +61,7 @@ const IssueForm = ({issue}: { issue?: Issue} ) => {
         <TextField.Input defaultValue={issue?.title} placeholder=" Title" {...register('title')} />
       </TextField.Root>
        <ErrorMessage> {errors.title?.message} </ErrorMessage> 
-      <Controller
+      <Controller 
       name='description'
       control={control}
       defaultValue={issue?.description}
