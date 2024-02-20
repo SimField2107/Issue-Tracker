@@ -21,8 +21,7 @@ const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
 
   const issue = await fetchUser(parseInt(params.id));
-
-  if (!issue) notFound();
+   if (!issue) notFound();
 
   return (
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
@@ -44,15 +43,14 @@ const IssueDetailPage = async ({ params }: Props) => {
 };
 
 export async function generateMetadata({params}: Props){ 
+  if (isNaN(parseInt(params.id))) notFound(); 
    const issue = await fetchUser(parseInt(params.id));
 
    return { 
     title: issue?.title, 
     description: 'Details of issue' + issue?.id
-   }
-
-
-}
+   }; 
+}; 
 
 
 export default IssueDetailPage;
