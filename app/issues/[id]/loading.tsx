@@ -13,7 +13,7 @@ const LoadingIssueDetailPage = () => {
     <Skeleton count={3}/> 
       </Card>
     </Box>
-  )
-}
+  ); 
+}; 
 
-export default LoadingIssueDetailPage
+export default LoadingIssueDetailPage; 
