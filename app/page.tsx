@@ -15,6 +15,7 @@ export default async function Home() {
   const closed = await prisma.issue.count({
     where: { status: 'CLOSED' },
   });
+  
 
   return (
     <Grid columns={{ initial: '1', md: '2' }} gap="5">
