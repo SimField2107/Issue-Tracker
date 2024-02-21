@@ -1,6 +1,6 @@
 import prisma from '@/prisma/client';
 import IssueSummary from './IssueSummary';
-import LatestIssues from './test';
+import LatestIssues from './LatestIssues';
 import IssueChart from './IssueChart';
 import { Flex, Grid } from '@radix-ui/themes';
 import { Metadata } from 'next';
